@@ -1,0 +1,116 @@
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import { apiService } from "../services/api"
+import { mockApiService } from "../services/mockApiService"
+
+const isDevelopment = import.meta.env.DEV
+const requestPasswordReset = isDevelopment
+  ? mockApiService.requestPasswordReset.bind(mockApiService)
+  : apiService.requestPasswordReset.bind(apiService)
+
+const ForgotPassword = () => {
+  const [email, setEmail] = useState("")
+  const [message, setMessage] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError(null)
+    setMessage(null)
+    setIsSubmitting(true)
+
+    try {
+      await requestPasswordReset(email)
+      setMessage(
+        "If an account exists for that email, we've sent a password reset link. Please check your inbox.",
+      )
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Something went wrong. Please try again.",
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <div className="w-full max-w-md">
+        <div className="card">
+          <div className="text-center mb-8">
+            <img
+              src="/images/map.png"
+              alt="Call Center"
+              className="h-12 w-12 rounded mx-auto mb-4"
+            />
+            <h1 className="text-2xl font-bold text-gray-900">
+              Reset your password
+            </h1>
+            <p className="mt-2 text-gray-600">
+              Enter your email and we'll send you a reset link.
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {error && (
+              <div
+                className="p-3 rounded-lg bg-red-50 text-red-700 text-sm"
+                role="alert"
+              >
+                {error}
+              </div>
+            )}
+            {message && (
+              <div
+                className="p-3 rounded-lg bg-green-50 text-green-700 text-sm"
+                role="status"
+              >
+                {message}
+              </div>
+            )}
+
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Email address
+              </label>
+              <input
+                id="email"
+                type="email"
+                autoComplete="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="input-field"
+                placeholder="you@example.com"
+                disabled={!!message}
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isSubmitting || !!message}
+              className="w-full btn-primary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? "Sending..." : "Send reset link"}
+            </button>
+          </form>
+
+          <p className="mt-6 text-center">
+            <Link
+              to="/login"
+              className="text-sm text-primary-600 hover:text-primary-700"
+            >
+              ← Back to sign in
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default ForgotPassword

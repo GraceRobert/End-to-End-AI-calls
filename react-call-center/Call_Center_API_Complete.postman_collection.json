@@ -1,0 +1,879 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+		"name": "Call Center & Institution API - Complete Collection",
+		"description": "Comprehensive API collection for testing Institution Management, Call Center operations, Knowledge Base, Analytics, and AI features.\n\n## Authentication\nMost endpoints require authentication using Bearer token. Set the `auth_token` variable in your environment.\n\n## Environment Variables\n- `base_url`: Your API base URL (e.g., http://localhost:8000/api)\n- `auth_token`: Your authentication token\n- `institution_id`: ID of institution for testing\n- `institution_slug`: Slug of institution for testing\n- `call_id`: ID of call for testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{auth_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000/api",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "1. Institution Management",
+			"item": [
+				{
+					"name": "List All Institutions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/institutions?per_page=10&search=",
+							"host": ["{{base_url}}"],
+							"path": ["institutions"],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "10",
+									"description": "Number of items per page"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "Search by name, phone_number, or sector"
+								}
+							]
+						},
+						"description": "Retrieve a paginated list of all institutions with optional search filtering."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Institution",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set('institution_id', jsonData.data.id);",
+									"    pm.environment.set('institution_slug', jsonData.data.slug);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Safaricom Customer Care\",\n    \"slug\": \"safaricom-customer-care\",\n    \"phone_number\": \"+254712345678\",\n    \"virtual_number\": \"+254700123456\",\n    \"sip_username\": \"safaricom_cc\",\n    \"sip_password\": \"secure_password_123\",\n    \"sip_domain\": \"ke.sip.africastalking.com\",\n    \"sector\": \"Telecommunications\",\n    \"call_flow\": \"ai_assistant\",\n    \"business_hours\": {\n        \"monday\": [\"08:00\", \"17:00\"],\n        \"tuesday\": [\"08:00\", \"17:00\"],\n        \"wednesday\": [\"08:00\", \"17:00\"],\n        \"thursday\": [\"08:00\", \"17:00\"],\n        \"friday\": [\"08:00\", \"17:00\"],\n        \"saturday\": [\"09:00\", \"13:00\"],\n        \"sunday\": \"closed\"\n    },\n    \"timezone\": \"Africa/Nairobi\",\n    \"is_active\": true,\n    \"sip_enabled\": true,\n    \"virtual_number_enabled\": true,\n    \"webrtc_enabled\": false,\n    \"config\": {\n        \"greeting\": \"Hello! Welcome to Safaricom Customer Care. I'm IMLA, your AI assistant.\",\n        \"kenyan_greeting\": \"Karibu to Safaricom Customer Care. My name is IMLA.\",\n        \"max_call_duration\": 1800\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/institutions",
+							"host": ["{{base_url}}"],
+							"path": ["institutions"]
+						},
+						"description": "Create a new institution with all configuration settings."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Institution by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/institutions/{{institution_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["institutions", "{{institution_id}}"]
+						},
+						"description": "Retrieve detailed information about a specific institution including its knowledge base and recent calls."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Institution",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Safaricom Customer Care - Updated\",\n    \"is_active\": true,\n    \"webrtc_enabled\": true,\n    \"config\": {\n        \"greeting\": \"Hello! Welcome to Safaricom. This is IMLA, your AI assistant.\",\n        \"max_call_duration\": 2400\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/institutions/{{institution_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["institutions", "{{institution_id}}"]
+						},
+						"description": "Update institution details. Only include fields you want to change."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Institution",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/institutions/{{institution_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["institutions", "{{institution_id}}"]
+						},
+						"description": "Delete an institution and all its associated data."
+					},
+					"response": []
+				},
+				{
+					"name": "Test SIP Connection",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/institutions/{{institution_id}}/test-sip",
+							"host": ["{{base_url}}"],
+							"path": ["institutions", "{{institution_id}}", "test-sip"]
+						},
+						"description": "Test the SIP connection configuration for an institution."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Institution Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/institutions/{{institution_id}}/stats",
+							"host": ["{{base_url}}"],
+							"path": ["institutions", "{{institution_id}}", "stats"]
+						},
+						"description": "Get comprehensive statistics for a specific institution."
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle Institution Status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/institutions/{{institution_id}}/toggle-status",
+							"host": ["{{base_url}}"],
+							"path": ["institutions", "{{institution_id}}", "toggle-status"]
+						},
+						"description": "Toggle institution active/inactive status."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Institution Settings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/institutions/{{institution_slug}}/settings",
+							"host": ["{{base_url}}"],
+							"path": ["institutions", "{{institution_slug}}", "settings"]
+						},
+						"description": "Get all settings for an institution by slug."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Institution Settings",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"callCentreName\": \"Safaricom AI Call Center\",\n    \"callCentreDescription\": \"Advanced AI-powered customer care\",\n    \"defaultLanguage\": \"English\",\n    \"defaultVoice\": \"en-US-Standard-A\",\n    \"defaultGreeting\": \"Hello! Thank you for calling Safaricom.\",\n    \"crmIntegrationKey\": \"sk-1234567890abcdef\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/institutions/{{institution_slug}}/settings",
+							"host": ["{{base_url}}"],
+							"path": ["institutions", "{{institution_slug}}", "settings"]
+						},
+						"description": "Update settings for an institution."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for managing institutions (CRUD operations, settings, stats)"
+		},
+		{
+			"name": "2. Knowledge Base Management",
+			"item": [
+				{
+					"name": "Get Knowledge Base",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/call-center/institutions/{{institution_id}}/knowledge-base",
+							"host": ["{{base_url}}"],
+							"path": ["call-center", "institutions", "{{institution_id}}", "knowledge-base"]
+						},
+						"description": "Retrieve the active knowledge base for an institution."
+					},
+					"response": []
+				},
+				{
+					"name": "Create/Update Knowledge Base",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"mpesa\": {\n            \"send_money\": \"To send money via M-Pesa, dial *334#, select Send Money, enter recipient number and amount.\",\n            \"withdraw\": \"To withdraw from M-Pesa, dial *334#, select Withdraw, choose agent, enter amount.\",\n            \"check_balance\": \"To check your M-Pesa balance, dial *334#, select My Account, then Check Balance.\"\n        },\n        \"airtime\": {\n            \"buy_for_self\": \"To buy airtime for yourself, dial *141*amount#. Example: *141*100# for KES 100.\",\n            \"buy_for_other\": \"To buy airtime for someone else, dial *141*recipient_number*amount#.\"\n        },\n        \"data_bundles\": {\n            \"daily\": \"Daily bundles: Dial *544# and select daily bundles. 200MB for KES 20, 500MB for KES 50.\",\n            \"weekly\": \"Weekly bundles: Dial *544# and select weekly bundles. 1GB for KES 100, 2GB for KES 200.\",\n            \"monthly\": \"Monthly bundles: Dial *544# and select monthly bundles. 5GB for KES 500, 10GB for KES 1000.\"\n        },\n        \"customer_support\": {\n            \"contact_number\": \"For customer support, call 100 from your Safaricom line or +254722000000 from other networks.\",\n            \"hours\": \"Customer care is available 24/7.\",\n            \"email\": \"Email us at care@safaricom.co.ke\"\n        },\n        \"network_issues\": {\n            \"troubleshooting\": \"If experiencing network issues: 1) Restart your phone, 2) Check airplane mode is off, 3) Check if you're in coverage area.\",\n            \"report\": \"To report network issues, dial 100 or use mySafaricom app.\"\n        }\n    },\n    \"version\": \"2.0\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/call-center/institutions/{{institution_id}}/knowledge-base",
+							"host": ["{{base_url}}"],
+							"path": ["call-center", "institutions", "{{institution_id}}", "knowledge-base"]
+						},
+						"description": "Create or update the knowledge base for an institution. Deactivates previous version and creates a new one."
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Document to Knowledge Base",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/path/to/document.pdf",
+									"description": "PDF, DOC, DOCX, or TXT file"
+								},
+								{
+									"key": "document_type",
+									"value": "FAQ",
+									"type": "text",
+									"description": "Type of document (e.g., FAQ, Policy, Guide)"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/call-center/institutions/{{institution_id}}/upload-document",
+							"host": ["{{base_url}}"],
+							"path": ["call-center", "institutions", "{{institution_id}}", "upload-document"]
+						},
+						"description": "Upload a document (PDF, DOC, DOCX, TXT) to extract text and add to knowledge base."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for managing institution knowledge bases"
+		},
+		{
+			"name": "3. Call Handling (Webhooks - Public)",
+			"item": [
+				{
+					"name": "Incoming Call Webhook",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sessionId\": \"ATUid_123456789\",\n    \"isActive\": \"1\",\n    \"callerNumber\": \"+254712345678\",\n    \"destinationNumber\": \"+254700123456\",\n    \"direction\": \"Inbound\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/call-center/institutions/{{institution_slug}}/incoming-call",
+							"host": ["{{base_url}}"],
+							"path": ["call-center", "institutions", "{{institution_slug}}", "incoming-call"]
+						},
+						"description": "Africa's Talking webhook for incoming calls. This endpoint handles the initial call connection."
+					},
+					"response": []
+				},
+				{
+					"name": "Call End Webhook",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sessionId\": \"ATUid_123456789\",\n    \"durationInSeconds\": \"125\",\n    \"currencyCode\": \"KES\",\n    \"amount\": \"2.50\",\n    \"callerNumber\": \"+254712345678\",\n    \"destinationNumber\": \"+254700123456\",\n    \"status\": \"Success\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/call-center/institutions/{{institution_slug}}/call-end",
+							"host": ["{{base_url}}"],
+							"path": ["call-center", "institutions", "{{institution_slug}}", "call-end"]
+						},
+						"description": "Africa's Talking webhook for call completion. Logs call duration and cost."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Institution Stats (Public)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/call-center/institutions/{{institution_slug}}/stats",
+							"host": ["{{base_url}}"],
+							"path": ["call-center", "institutions", "{{institution_slug}}", "stats"]
+						},
+						"description": "Public endpoint to get institution statistics by slug."
+					},
+					"response": []
+				},
+				{
+					"name": "Health Check",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/call-center/institutions/{{institution_slug}}/health",
+							"host": ["{{base_url}}"],
+							"path": ["call-center", "institutions", "{{institution_slug}}", "health"]
+						},
+						"description": "Check health status of institution's call handling system."
+					},
+					"response": []
+				}
+			],
+			"description": "Public webhook endpoints called by Africa's Talking (no authentication required)"
+		},
+		{
+			"name": "4. Dashboard & Analytics",
+			"item": [
+				{
+					"name": "Get Dashboard KPIs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/dashboard/kpis?institution={{institution_slug}}",
+							"host": ["{{base_url}}"],
+							"path": ["dashboard", "kpis"],
+							"query": [
+								{
+									"key": "institution",
+									"value": "{{institution_slug}}",
+									"description": "Optional: Filter by institution slug"
+								}
+							]
+						},
+						"description": "Get key performance indicators for dashboard cards."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Call Volume",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/dashboard/call-volume?period=week&institution={{institution_slug}}",
+							"host": ["{{base_url}}"],
+							"path": ["dashboard", "call-volume"],
+							"query": [
+								{
+									"key": "period",
+									"value": "week",
+									"description": "day, week, month, year"
+								},
+								{
+									"key": "institution",
+									"value": "{{institution_slug}}",
+									"description": "Optional: Filter by institution"
+								}
+							]
+						},
+						"description": "Get call volume data over time for charts."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Call Duration Distribution",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/dashboard/call-duration?institution={{institution_slug}}",
+							"host": ["{{base_url}}"],
+							"path": ["dashboard", "call-duration"],
+							"query": [
+								{
+									"key": "institution",
+									"value": "{{institution_slug}}",
+									"description": "Optional: Filter by institution"
+								}
+							]
+						},
+						"description": "Get distribution of call durations."
+					},
+					"response": []
+				}
+			],
+			"description": "Dashboard KPIs and analytics endpoints"
+		},
+		{
+			"name": "5. Call Logs Management",
+			"item": [
+				{
+					"name": "Get Call Logs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/call-logs?search=&page=1&per_page=20&status=&institution={{institution_slug}}&date_from=&date_to=",
+							"host": ["{{base_url}}"],
+							"path": ["call-logs"],
+							"query": [
+								{
+									"key": "search",
+									"value": "",
+									"description": "Search by caller number or customer name"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "20"
+								},
+								{
+									"key": "status",
+									"value": "",
+									"description": "completed, active, failed, queued"
+								},
+								{
+									"key": "institution",
+									"value": "{{institution_slug}}",
+									"description": "Filter by institution slug"
+								},
+								{
+									"key": "date_from",
+									"value": "",
+									"description": "YYYY-MM-DD format"
+								},
+								{
+									"key": "date_to",
+									"value": "",
+									"description": "YYYY-MM-DD format"
+								}
+							]
+						},
+						"description": "Get paginated list of call logs with filtering options."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Call Transcript",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set('call_id', jsonData[0].id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/call-logs/{{call_id}}/transcript",
+							"host": ["{{base_url}}"],
+							"path": ["call-logs", "{{call_id}}", "transcript"]
+						},
+						"description": "Get detailed conversation transcript for a specific call."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Call Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/call-logs/{{call_id}}/details",
+							"host": ["{{base_url}}"],
+							"path": ["call-logs", "{{call_id}}", "details"]
+						},
+						"description": "Get comprehensive details about a specific call including metadata and audio URL."
+					},
+					"response": []
+				},
+				{
+					"name": "Flag Call for Review",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reason\": \"Unusual customer behavior detected\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/call-logs/{{call_id}}/flag",
+							"host": ["{{base_url}}"],
+							"path": ["call-logs", "{{call_id}}", "flag"]
+						},
+						"description": "Flag a call for manual review with a reason."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for managing and reviewing call logs"
+		},
+		{
+			"name": "6. Performance Metrics",
+			"item": [
+				{
+					"name": "Get Calls Processed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/performance/calls-processed?period=day&institution={{institution_slug}}",
+							"host": ["{{base_url}}"],
+							"path": ["performance", "calls-processed"],
+							"query": [
+								{
+									"key": "period",
+									"value": "day",
+									"description": "day, week, month"
+								},
+								{
+									"key": "institution",
+									"value": "{{institution_slug}}",
+									"description": "Filter by institution"
+								}
+							]
+						},
+						"description": "Get number of calls processed over time."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Error Rate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/performance/error-rate?period=day&institution={{institution_slug}}",
+							"host": ["{{base_url}}"],
+							"path": ["performance", "error-rate"],
+							"query": [
+								{
+									"key": "period",
+									"value": "day",
+									"description": "day, week, month"
+								},
+								{
+									"key": "institution",
+									"value": "{{institution_slug}}",
+									"description": "Filter by institution"
+								}
+							]
+						},
+						"description": "Get error rate trend over time."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Error Types Breakdown",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/performance/error-types?institution={{institution_slug}}",
+							"host": ["{{base_url}}"],
+							"path": ["performance", "error-types"],
+							"query": [
+								{
+									"key": "institution",
+									"value": "{{institution_slug}}",
+									"description": "Filter by institution"
+								}
+							]
+						},
+						"description": "Get breakdown of error types with counts and percentages."
+					},
+					"response": []
+				}
+			],
+			"description": "Performance monitoring and metrics endpoints"
+		},
+		{
+			"name": "7. AI Analysis & Query",
+			"item": [
+				{
+					"name": "Analyze Call with AI",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"summarize\",\n    \"callId\": \"{{call_id}}\",\n    \"category\": \"support\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/ai/analyze",
+							"host": ["{{base_url}}"],
+							"path": ["ai", "analyze"]
+						},
+						"description": "Perform AI analysis on call data. Types: summarize, sentiment, intent."
+					},
+					"response": []
+				},
+				{
+					"name": "Query Calls by Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ai/query?category=complaints&institution={{institution_slug}}",
+							"host": ["{{base_url}}"],
+							"path": ["ai", "query"],
+							"query": [
+								{
+									"key": "category",
+									"value": "complaints",
+									"description": "complaints, orders, support, billing, airtime, data, mpesa"
+								},
+								{
+									"key": "institution",
+									"value": "{{institution_slug}}",
+									"description": "Filter by institution"
+								}
+							]
+						},
+						"description": "Query and filter calls by category using AI keywords."
+					},
+					"response": []
+				}
+			],
+			"description": "AI-powered analysis and query endpoints"
+		},
+		{
+			"name": "8. Call Center Monitoring",
+			"item": [
+				{
+					"name": "Get Call Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/call-center/call-stats?institution={{institution_slug}}",
+							"host": ["{{base_url}}"],
+							"path": ["call-center", "call-stats"],
+							"query": [
+								{
+									"key": "institution",
+									"value": "{{institution_slug}}",
+									"description": "Filter by institution"
+								}
+							]
+						},
+						"description": "Get overall call center statistics."
+					},
+					"response": []
+				},
+				{
+					"name": "Health Check (System)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/call-center/health",
+							"host": ["{{base_url}}"],
+							"path": ["call-center", "health"]
+						},
+						"description": "Check overall system health including transcription services."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Call Details by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/call-center/calls/{{call_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["call-center", "calls", "{{call_id}}"]
+						},
+						"description": "Get detailed information about a specific call by ID."
+					},
+					"response": []
+				}
+			],
+			"description": "Legacy call center monitoring endpoints"
+		},
+		{
+			"name": "9. Audio & Media",
+			"item": [
+				{
+					"name": "Get Audio URL",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/audio/{{call_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["audio", "{{call_id}}"]
+						},
+						"description": "Get the audio file URL for a specific call (public endpoint)."
+					},
+					"response": []
+				},
+				{
+					"name": "Stream Audio",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/audio/{{call_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["audio", "{{call_id}}"]
+						},
+						"description": "Stream audio file for a call."
+					},
+					"response": []
+				}
+			],
+			"description": "Audio file access and streaming endpoints"
+		},
+		{
+			"name": "10. Testing & Utilities",
+			"item": [
+				{
+					"name": "Test Whisper Service Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/call-center/health",
+							"host": ["{{base_url}}"],
+							"path": ["call-center", "health"]
+						},
+						"description": "Test the health of Groq and OpenAI Whisper transcription services."
+					},
+					"response": []
+				},
+				{
+					"name": "Simulate Call Flow",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"institution_slug\": \"{{institution_slug}}\",\n    \"caller_number\": \"+254712345678\",\n    \"test_scenario\": \"mpesa_query\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/call-center/test/simulate-call",
+							"host": ["{{base_url}}"],
+							"path": ["call-center", "test", "simulate-call"]
+						},
+						"description": "Simulate a complete call flow for testing purposes."
+					},
+					"response": []
+				}
+			],
+			"description": "Testing and utility endpoints for development"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
