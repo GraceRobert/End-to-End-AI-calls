@@ -2,26 +2,102 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Imla2.0 Design System ───────────────────────────────────────────── */
+
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900;
+    /* Earthy putty/sand background + Stark Jet Black text */
+    @apply bg-bg-sand text-secondary-900 font-sans antialiased;
+  }
+
+  /* Editorial heading reset — Syne bold, tight tracking */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold tracking-tight;
+  }
+
+  /* Custom selection — terracotta bg + sand text */
+  ::selection {
+    background-color: #cc6622; /* primary-500 */
+    color: #f4f1ed;            /* bg-sand */
   }
 }
 
 @layer components {
+  /* ── CTA Buttons (Brutalist offset-shadow style) ── */
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply inline-flex items-center justify-center
+           bg-primary-500 text-secondary-50
+           font-display font-bold uppercase tracking-wide text-sm
+           px-8 py-4
+           rounded-md border-2 border-secondary-900
+           shadow-brutalist
+           hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutalist-sm
+           active:translate-x-[4px] active:translate-y-[4px] active:shadow-none
+           transition-all duration-150;
   }
 
   .btn-secondary {
-    @apply bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply inline-flex items-center justify-center
+           bg-secondary-900 text-secondary-50
+           font-display font-bold uppercase tracking-wider text-xs
+           px-6 py-3
+           rounded-md
+           shadow-brutalist-accent
+           hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#cc6622]
+           active:shadow-none active:translate-x-[4px] active:translate-y-[4px]
+           transition-all duration-150;
   }
 
+  .btn-ghost {
+    @apply inline-flex items-center gap-2
+           font-sans font-medium text-secondary-900
+           hover:text-primary-600
+           transition-colors duration-200;
+  }
+
+  /* ── Cards ── */
   .card {
-    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
+    @apply bg-bg-paper
+           rounded-md border border-black/10
+           p-6
+           shadow-sm;
   }
 
+  .card-brutalist {
+    @apply bg-bg-paper
+           border-2 border-secondary-900
+           p-6
+           shadow-brutalist;
+  }
+
+  /* ── Form inputs ── */
   .input-field {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+    @apply w-full px-3 py-2
+           bg-bg-paper
+           border border-secondary-900/20 rounded-md
+           font-sans text-secondary-900 placeholder:text-secondary-900/40
+           focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent
+           transition-shadow duration-150;
+  }
+
+  /* ── Tagline / Badge ── */
+  .badge {
+    @apply inline-flex items-center gap-2
+           px-3 py-1.5
+           border border-secondary-900/20 rounded-md
+           font-display text-xs font-bold uppercase tracking-widest text-secondary-900;
+  }
+
+  /* ── Stat / Metric card ── */
+  .stat-card {
+    @apply card flex flex-col gap-1;
+  }
+
+  .stat-label {
+    @apply font-sans text-xs font-bold uppercase tracking-widest text-secondary-900/50;
+  }
+
+  .stat-value {
+    @apply font-display text-3xl font-bold text-secondary-900;
   }
 }
