@@ -1,14 +1,14 @@
 import { useState } from "react"
 import { Link, useSearchParams, useNavigate, Navigate } from "react-router-dom"
 import { Eye, EyeOff } from "lucide-react"
-import { apiService } from "../services/api"
+import { apiService, userFacingError } from "../services/api"
 import { mockApiService } from "../services/mockApiService"
 import { useAuth } from "../contexts/AuthContext"
 
-const isDevelopment = import.meta.env.DEV
-const registerFn = isDevelopment
-  ? mockApiService.register.bind(mockApiService)
-  : apiService.register.bind(apiService)
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+const registerFn = apiBaseUrl
+  ? apiService.register.bind(apiService)
+  : mockApiService.register.bind(mockApiService)
 
 const PLAN_LABELS: Record<string, { name: string; price: string }> = {
   basic: { name: "Basic", price: "KSh 6,000/month" },
@@ -62,7 +62,10 @@ const Register = () => {
       navigate("/", { replace: true })
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Registration failed. Please try again."
+        userFacingError(
+          err instanceof Error ? err.message : null,
+          "Registration failed. Please try again.",
+        ),
       )
     } finally {
       setIsSubmitting(false)

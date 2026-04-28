@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 import { Eye, EyeOff } from "lucide-react"
 import { useAuth } from "../contexts/AuthContext"
+import { userFacingError } from "../services/api"
 
 const Login = () => {
   const [email, setEmail] = useState("")
@@ -25,7 +26,12 @@ const Login = () => {
       await login(email, password)
       navigate(from, { replace: true })
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Login failed. Please try again.")
+      setError(
+        userFacingError(
+          err instanceof Error ? err.message : null,
+          "Login failed. Please try again.",
+        ),
+      )
     } finally {
       setIsSubmitting(false)
     }

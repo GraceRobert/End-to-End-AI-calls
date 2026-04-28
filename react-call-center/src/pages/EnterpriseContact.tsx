@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { apiService } from "../services/api"
+import { apiService, userFacingError } from "../services/api"
 import { mockApiService } from "../services/mockApiService"
 
-const isDevelopment = import.meta.env.DEV
-const submitEnterpriseContact = isDevelopment
-  ? mockApiService.submitEnterpriseContact.bind(mockApiService)
-  : apiService.submitEnterpriseContact.bind(apiService)
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+const submitEnterpriseContact = apiBaseUrl
+  ? apiService.submitEnterpriseContact.bind(apiService)
+  : mockApiService.submitEnterpriseContact.bind(mockApiService)
 
 const USE_CASES = [
   { value: "", label: "Select use case" },
@@ -45,7 +45,10 @@ const EnterpriseContact = () => {
       setSuccess(true)
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Something went wrong. Please try again."
+        userFacingError(
+          err instanceof Error ? err.message : null,
+          "Something went wrong. Please try again.",
+        ),
       )
     } finally {
       setIsSubmitting(false)

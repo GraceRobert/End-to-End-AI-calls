@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { apiService } from "../services/api"
+import { apiService, userFacingError } from "../services/api"
 import { mockApiService } from "../services/mockApiService"
 
-const isDevelopment = import.meta.env.DEV
-const requestPasswordReset = isDevelopment
-  ? mockApiService.requestPasswordReset.bind(mockApiService)
-  : apiService.requestPasswordReset.bind(apiService)
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+const requestPasswordReset = apiBaseUrl
+  ? apiService.requestPasswordReset.bind(apiService)
+  : mockApiService.requestPasswordReset.bind(mockApiService)
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("")
@@ -27,7 +27,10 @@ const ForgotPassword = () => {
       )
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Something went wrong. Please try again.",
+        userFacingError(
+          err instanceof Error ? err.message : null,
+          "Something went wrong. Please try again.",
+        ),
       )
     } finally {
       setIsSubmitting(false)

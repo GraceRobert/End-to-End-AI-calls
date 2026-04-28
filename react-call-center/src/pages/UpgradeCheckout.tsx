@@ -1,13 +1,13 @@
 import { useState } from "react"
 import { Link, useParams, useNavigate } from "react-router-dom"
 import { getPlanById, type PlanId } from "../data/plans"
-import { apiService } from "../services/api"
+import { apiService, userFacingError } from "../services/api"
 import { mockApiService } from "../services/mockApiService"
 
-const isDevelopment = import.meta.env.DEV
-const initiateUpgrade = isDevelopment
-  ? mockApiService.initiateUpgrade.bind(mockApiService)
-  : apiService.initiateUpgrade.bind(apiService)
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+const initiateUpgrade = apiBaseUrl
+  ? apiService.initiateUpgrade.bind(apiService)
+  : mockApiService.initiateUpgrade.bind(mockApiService)
 
 const UpgradeCheckout = () => {
   const { planId } = useParams<{ planId: string }>()
@@ -49,7 +49,12 @@ const UpgradeCheckout = () => {
         navigate("/payment", { replace: true })
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Upgrade failed")
+      setError(
+        userFacingError(
+          err instanceof Error ? err.message : null,
+          "Upgrade failed. Please try again.",
+        ),
+      )
     } finally {
       setIsSubmitting(false)
     }

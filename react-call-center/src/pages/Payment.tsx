@@ -75,7 +75,8 @@ const Payment = () => {
           Upgrade your plan
         </h2>
         <p className="text-gray-600 mb-6">
-          Get more intents, concurrent calls, and features as your business grows.
+          Get more intents, concurrent calls, and features as your business
+          grows.
         </p>
 
         {upgradePlans.length === 0 ? (
@@ -111,7 +112,10 @@ const Payment = () => {
                 </p>
                 <ul className="mt-4 space-y-2">
                   {plan.features.slice(0, 4).map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-sm text-gray-600">
+                    <li
+                      key={f}
+                      className="flex items-center gap-2 text-sm text-gray-600"
+                    >
                       <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
                       {f}
                     </li>

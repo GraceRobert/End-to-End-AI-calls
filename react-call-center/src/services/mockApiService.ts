@@ -67,7 +67,7 @@ class MockApiService {
   }
 
   async submitEnterpriseContact(
-    _data: EnterpriseContactRequest
+    _data: EnterpriseContactRequest,
   ): Promise<void> {
     await simulateApiDelay(600)
     // Mock: always succeeds
@@ -192,8 +192,8 @@ class MockApiService {
       keywords.some(
         (keyword) =>
           log.userId.toLowerCase().includes(keyword) ||
-          log.transcript.toLowerCase().includes(keyword)
-      )
+          log.transcript.toLowerCase().includes(keyword),
+      ),
     )
   }
 
@@ -208,13 +208,13 @@ class MockApiService {
   // Flagging APIs
   async flagCallForReview(
     callId: string,
-    reason?: string
+    reason?: string,
   ): Promise<{ success: boolean }> {
     await simulateApiDelay(300)
     console.log(
       `Flagging call ${callId} for review. Reason: ${
         reason || "No reason provided"
-      }`
+      }`,
     )
     return { success: true }
   }

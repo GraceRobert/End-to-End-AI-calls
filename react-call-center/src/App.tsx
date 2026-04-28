@@ -17,10 +17,10 @@ import UpgradeCheckout from "./pages/UpgradeCheckout"
 import { apiService } from "./services/api"
 import { mockApiService } from "./services/mockApiService"
 
-const isDevelopment = import.meta.env.DEV
-const loginFn = isDevelopment
-  ? mockApiService.login.bind(mockApiService)
-  : apiService.login.bind(apiService)
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+const loginFn = apiBaseUrl
+  ? apiService.login.bind(apiService)
+  : mockApiService.login.bind(mockApiService)
 
 function ProtectedLayout() {
   return (
@@ -47,7 +47,10 @@ function App() {
           <Route path="/performance" element={<PerformanceMetrics />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/payment" element={<Payment />} />
-          <Route path="/payment/upgrade/:planId" element={<UpgradeCheckout />} />
+          <Route
+            path="/payment/upgrade/:planId"
+            element={<UpgradeCheckout />}
+          />
           <Route path="/transcript/:id" element={<CallTranscript />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />

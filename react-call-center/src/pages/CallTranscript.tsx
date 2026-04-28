@@ -173,18 +173,25 @@ const CallTranscript = () => {
         </div>
 
         {/* Call Details Panel */}
-        <div className="space-y-4">
-          <div className="card">
+        <div className="space-y-4 min-w-0">
+          <div className="card min-w-0 overflow-hidden">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">
               Call Details
             </h2>
 
-            <div className="space-y-4">
-              <div>
+            <div className="space-y-4 min-w-0">
+              <div className="min-w-0">
                 <label className="block text-sm font-medium text-gray-500">
                   Call ID
                 </label>
-                <p className="text-lg font-semibold text-gray-900">
+                <p
+                  className="text-lg font-semibold text-gray-900 truncate"
+                  title={
+                    callDetails?.id != null && callDetails.id !== ""
+                      ? String(callDetails.id)
+                      : undefined
+                  }
+                >
                   {callDetails?.id || "N/A"}
                 </p>
               </div>

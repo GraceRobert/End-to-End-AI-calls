@@ -1,11 +1,11 @@
 // Custom hook for API calls with loading states and error handling
 import { useState, useEffect, useCallback } from "react"
-import { apiService } from "../services/api"
+import { apiService, userFacingError } from "../services/api"
 import { mockApiService } from "../services/mockApiService"
 
-// Determine which API service to use based on environment
-const isDevelopment = import.meta.env.DEV
-const api = isDevelopment ? mockApiService : apiService
+// Use real API when VITE_API_BASE_URL is set, otherwise use mock
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+const api = apiBaseUrl ? apiService : mockApiService
 
 // Generic hook for API calls
 export function useApi<T>(apiCall: () => Promise<T>, dependencies: any[] = []) {
@@ -20,7 +20,12 @@ export function useApi<T>(apiCall: () => Promise<T>, dependencies: any[] = []) {
       const result = await apiCall()
       setData(result)
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred")
+      setError(
+        userFacingError(
+          err instanceof Error ? err.message : null,
+          "An error occurred",
+        ),
+      )
       console.error("API Error:", err)
     } finally {
       setLoading(false)
@@ -94,8 +99,10 @@ export function useMutation<T, P = any>(mutationFn: (params: P) => Promise<T>) {
         setData(result)
         return result
       } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : "An error occurred"
+        const errorMessage = userFacingError(
+          err instanceof Error ? err.message : null,
+          "An error occurred",
+        )
         setError(errorMessage)
         console.error("Mutation Error:", err)
         throw err

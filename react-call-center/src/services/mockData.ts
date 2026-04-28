@@ -276,7 +276,7 @@ export const filterCallLogs = (
 // Helper function to get call log by ID
 export const getCallLogById = (
   logs: CallLog[],
-  id: number
+  id: string | number
 ): CallLog | undefined => {
-  return logs.find((log) => log.id === id)
+  return logs.find((log) => String(log.id) === String(id))
 }
