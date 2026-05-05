@@ -86,19 +86,19 @@ const PLANS = [
 
 const PlanSelection = () => {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <div className="min-h-screen bg-bg-sand py-12 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <Link
             to="/login"
-            className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 mb-6"
+            className="inline-flex items-center text-sm font-sans text-secondary-900/70 hover:text-secondary-900 mb-6"
           >
             ← Back to sign in
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-secondary-900">
             Choose your plan
           </h1>
-          <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-2 font-sans text-secondary-900/70 max-w-2xl mx-auto">
             Select the plan that best fits your business. Basic, Essentials, and
             Pro are available for immediate sign-up. Enterprise includes a
             dedicated account manager—our team will contact you.
@@ -116,36 +116,36 @@ const PlanSelection = () => {
                 }`}
               >
                 {plan.highlight && (
-                  <span className="inline-block w-fit px-3 py-1 text-xs font-medium bg-primary-100 text-primary-700 rounded-full mb-4">
+                  <span className="inline-block w-fit px-3 py-1 text-xs font-sans font-medium bg-primary-100 text-primary-700 rounded-full mb-4">
                     Most popular
                   </span>
                 )}
                 <div className="flex items-center gap-3 mb-4">
                   <div
                     className={`p-2 rounded-lg ${
-                      plan.highlight ? "bg-primary-100" : "bg-gray-100"
+                      plan.highlight ? "bg-primary-100" : "bg-secondary-900/[0.06]"
                     }`}
                   >
                     <Icon
                       className={`h-6 w-6 ${
-                        plan.highlight ? "text-primary-600" : "text-gray-600"
+                        plan.highlight ? "text-primary-600" : "text-secondary-900/70"
                       }`}
                     />
                   </div>
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-900">
+                    <h2 className="text-xl font-semibold text-secondary-900">
                       {plan.name}
                     </h2>
-                    <p className="text-sm text-gray-500">{plan.bestFor}</p>
+                    <p className="text-sm text-secondary-900/50">{plan.bestFor}</p>
                   </div>
                 </div>
 
                 <div className="mb-6">
-                  <span className="text-3xl font-bold text-gray-900">
+                  <span className="font-stat text-3xl text-secondary-900">
                     {plan.currency ? `${plan.currency} ` : ""}{plan.price}
                   </span>
                   {plan.period && (
-                    <span className="text-gray-500">/{plan.period}</span>
+                    <span className="text-secondary-900/50">/{plan.period}</span>
                   )}
                 </div>
 
@@ -153,9 +153,9 @@ const PlanSelection = () => {
                   {plan.features.map((feature) => (
                     <li
                       key={feature}
-                      className="flex items-start gap-2 text-sm text-gray-600"
+                      className="flex items-start gap-2 text-sm text-secondary-900/70"
                     >
-                      <Check className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <Check className="h-5 w-5 text-primary-500 flex-shrink-0 mt-0.5" />
                       {feature}
                     </li>
                   ))}
@@ -163,10 +163,10 @@ const PlanSelection = () => {
 
                 <Link
                   to={plan.href}
-                  className={`w-full py-3 px-4 rounded-lg font-medium text-center transition-colors ${
+                  className={`w-full py-3 px-4 rounded-lg font-sans font-medium text-center transition-colors ${
                     plan.highlight
                       ? "btn-primary"
-                      : "btn-secondary hover:bg-gray-200"
+                      : "btn-secondary hover:opacity-95"
                   }`}
                 >
                   {plan.cta}

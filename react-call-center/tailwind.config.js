@@ -7,9 +7,13 @@ module.exports = {
       colors: {
         // Burnt Terracotta — primary brand / CTA accent
         primary: {
+          50: "#fdf8f4",
+          100: "#fbeadc",
           400: "#e58a4d",
           500: "#cc6622",
           600: "#a54f15",
+          700: "#843c10",
+          800: "#5c2a0b",
         },
         // Jet Black / Near-White — text & structural elements
         secondary: {

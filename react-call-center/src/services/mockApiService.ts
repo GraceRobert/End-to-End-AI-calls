@@ -59,9 +59,10 @@ class MockApiService {
     return {
       token: `mock-token-${Date.now()}`,
       user: {
-        id: "mock-user-new",
+        id: `mock-user-${Date.now()}`,
         email: data.email,
         name: data.name,
+        plan: data.plan,
       },
     }
   }

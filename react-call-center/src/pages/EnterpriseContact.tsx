@@ -57,10 +57,10 @@ const EnterpriseContact = () => {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-bg-sand flex items-center justify-center px-4">
         <div className="w-full max-w-md">
           <div className="card text-center">
-            <div className="text-green-600 mb-4">
+            <div className="text-primary-600 mb-4">
               <svg
                 className="h-16 w-16 mx-auto"
                 fill="none"
@@ -75,10 +75,10 @@ const EnterpriseContact = () => {
                 />
               </svg>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            <h1 className="text-2xl font-bold text-secondary-900 mb-2">
               Thank you for your interest
             </h1>
-            <p className="text-gray-600 mb-6">
+            <p className="text-secondary-900/70 mb-6">
               Our team will contact you within 4 hours to discuss your Enterprise
               plan. We look forward to speaking with you.
             </p>
@@ -100,7 +100,7 @@ const EnterpriseContact = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-bg-sand flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md">
         <div className="card">
           <div className="text-center mb-6">
@@ -110,10 +110,10 @@ const EnterpriseContact = () => {
             >
               ← Back to plans
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900 mt-2">
+            <h1 className="text-2xl font-bold text-secondary-900 mt-2">
               Contact us for Enterprise
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-secondary-900/70 mt-1">
               Our team will reach out within 4 hours
             </p>
           </div>
@@ -121,7 +121,7 @@ const EnterpriseContact = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
               <div
-                className="p-3 rounded-lg bg-red-50 text-red-700 text-sm"
+                className="p-3 rounded-lg bg-primary-500/10 text-primary-600 border border-primary-500/20 text-sm"
                 role="alert"
               >
                 {error}
@@ -131,7 +131,7 @@ const EnterpriseContact = () => {
             <div>
               <label
                 htmlFor="companyName"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-sans font-medium text-secondary-900/80 mb-1"
               >
                 Company name
               </label>
@@ -149,7 +149,7 @@ const EnterpriseContact = () => {
             <div>
               <label
                 htmlFor="contactName"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-sans font-medium text-secondary-900/80 mb-1"
               >
                 Contact name
               </label>
@@ -167,7 +167,7 @@ const EnterpriseContact = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-sans font-medium text-secondary-900/80 mb-1"
               >
                 Email address
               </label>
@@ -185,7 +185,7 @@ const EnterpriseContact = () => {
             <div>
               <label
                 htmlFor="phone"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-sans font-medium text-secondary-900/80 mb-1"
               >
                 Phone number
               </label>
@@ -203,7 +203,7 @@ const EnterpriseContact = () => {
             <div>
               <label
                 htmlFor="useCase"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-sans font-medium text-secondary-900/80 mb-1"
               >
                 Use case
               </label>
@@ -224,9 +224,9 @@ const EnterpriseContact = () => {
             <div>
               <label
                 htmlFor="message"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-sans font-medium text-secondary-900/80 mb-1"
               >
-                Message <span className="text-gray-400">(optional)</span>
+                Message <span className="text-secondary-900/40">(optional)</span>
               </label>
               <textarea
                 id="message"

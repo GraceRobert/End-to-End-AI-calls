@@ -11,14 +11,24 @@
   }
 
   /* Editorial heading reset — Syne bold, tight tracking */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-display font-bold tracking-tight;
+  }
+
+  /* Large numeric / price emphasis — match .stat-value (Syne) */
+  .font-stat {
+    @apply font-display font-bold tabular-nums;
   }
 
   /* Custom selection — terracotta bg + sand text */
   ::selection {
     background-color: #cc6622; /* primary-500 */
-    color: #f4f1ed;            /* bg-sand */
+    color: #f4f1ed; /* bg-sand */
   }
 }
 

@@ -34,15 +34,15 @@ const Dashboard = () => {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-          <p className="mt-2 text-gray-600">
+          <h1 className="text-3xl font-bold text-secondary-900">Dashboard</h1>
+          <p className="mt-2 text-secondary-900/70">
             Monitor your call center performance in real-time
           </p>
         </div>
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading dashboard data...</p>
+            <p className="mt-4 text-secondary-900/70">Loading dashboard data...</p>
           </div>
         </div>
       </div>
@@ -54,14 +54,14 @@ const Dashboard = () => {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-          <p className="mt-2 text-gray-600">
+          <h1 className="text-3xl font-bold text-secondary-900">Dashboard</h1>
+          <p className="mt-2 text-secondary-900/70">
             Monitor your call center performance in real-time
           </p>
         </div>
         <div className="card">
           <div className="text-center py-8">
-            <div className="text-red-600 mb-4">
+            <div className="text-primary-600 mb-4">
               <svg
                 className="mx-auto h-12 w-12"
                 fill="none"
@@ -76,10 +76,10 @@ const Dashboard = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <h3 className="text-lg font-medium text-secondary-900 mb-2">
               Error Loading Dashboard
             </h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-secondary-900/70 mb-4">
               {kpiError || volumeError || durationError}
             </p>
             <button
@@ -97,8 +97,8 @@ const Dashboard = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        <p className="mt-2 text-gray-600">
+        <h1 className="text-3xl font-bold text-secondary-900">Dashboard</h1>
+        <p className="mt-2 text-secondary-900/70">
           Monitor your call center performance in real-time
         </p>
       </div>
@@ -109,8 +109,10 @@ const Dashboard = () => {
           <div key={index} className="card">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">{kpi.title}</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">
+                <p className="text-sm font-sans font-medium text-secondary-900/70">
+                  {kpi.title}
+                </p>
+                <p className="font-stat text-3xl text-secondary-900 mt-1">
                   {kpi.value}
                 </p>
               </div>
@@ -120,7 +122,7 @@ const Dashboard = () => {
                 ) : (
                   <TrendingDown className="h-5 w-5 mr-1" />
                 )}
-                <span className="text-sm font-medium">{kpi.change}</span>
+                <span className="text-sm font-sans font-medium">{kpi.change}</span>
               </div>
             </div>
           </div>
@@ -132,32 +134,32 @@ const Dashboard = () => {
         {/* Call Volume Over Time */}
         <div className="card">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-lg font-semibold text-secondary-900">
               Call Volume Over Time
             </h3>
-            <div className="flex items-center text-green-600">
+            <div className="flex items-center text-primary-600">
               <TrendingUp className="h-4 w-4 mr-1" />
-              <span className="text-sm font-medium">+15%</span>
+              <span className="text-sm font-sans font-medium">+15%</span>
             </div>
           </div>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={callVolumeData || []}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
-              <XAxis dataKey="day" stroke="#6b7280" />
-              <YAxis stroke="#6b7280" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#ece8e3" />
+              <XAxis dataKey="day" stroke="#5c5855" />
+              <YAxis stroke="#5c5855" />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "white",
-                  border: "1px solid #e5e7eb",
+                  backgroundColor: "#ffffff",
+                  border: "1px solid rgba(17,17,17,0.12)",
                   borderRadius: "8px",
                 }}
               />
               <Line
                 type="monotone"
                 dataKey="calls"
-                stroke="#3b82f6"
+                stroke="#cc6622"
                 strokeWidth={3}
-                dot={{ fill: "#3b82f6", strokeWidth: 2, r: 4 }}
+                dot={{ fill: "#cc6622", strokeWidth: 2, r: 4 }}
               />
             </LineChart>
           </ResponsiveContainer>
@@ -166,27 +168,27 @@ const Dashboard = () => {
         {/* Call Duration Distribution */}
         <div className="card">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-lg font-semibold text-secondary-900">
               Call Duration Distribution
             </h3>
-            <div className="flex items-center text-red-600">
+            <div className="flex items-center text-primary-700">
               <TrendingDown className="h-4 w-4 mr-1" />
-              <span className="text-sm font-medium">-8%</span>
+              <span className="text-sm font-sans font-medium">-8%</span>
             </div>
           </div>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={callDurationData || []}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
-              <XAxis dataKey="range" stroke="#6b7280" />
-              <YAxis stroke="#6b7280" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#ece8e3" />
+              <XAxis dataKey="range" stroke="#5c5855" />
+              <YAxis stroke="#5c5855" />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "white",
-                  border: "1px solid #e5e7eb",
+                  backgroundColor: "#ffffff",
+                  border: "1px solid rgba(17,17,17,0.12)",
                   borderRadius: "8px",
                 }}
               />
-              <Bar dataKey="calls" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="calls" fill="#cc6622" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

@@ -1,13 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import {
-  Search,
-  Play,
-  MessageSquare,
-  TrendingUp,
-  TrendingDown,
-  FileText,
-} from "lucide-react"
+import { Search } from "lucide-react"
 import {
   useCallLogs,
   useAnalyzeCall,
@@ -33,7 +26,7 @@ const CallLogs = () => {
     useQueryCallsByCategory()
 
   const handleAnalyzeCall = async (
-    type: "summarize" | "sentiment" | "action-items"
+    type: "summarize" | "sentiment" | "action-items",
   ) => {
     setIsAnalyzing(true)
     try {
@@ -63,7 +56,7 @@ const CallLogs = () => {
       console.log("Query results:", results)
       // In a real app, you might want to display these results in a modal or separate section
       alert(
-        `Found ${results.length} calls matching category: ${selectedCategory}`
+        `Found ${results.length} calls matching category: ${selectedCategory}`,
       )
     } catch (error) {
       console.error("Query failed:", error)
@@ -71,7 +64,7 @@ const CallLogs = () => {
     }
   }
 
-  const handleViewTranscript = (callId: number) => {
+  const handleViewTranscript = (callId: string | number) => {
     navigate(`/transcript/${callId}`)
   }
 
@@ -80,17 +73,17 @@ const CallLogs = () => {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-secondary-900">
             Call Logs & Transcripts
           </h1>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 font-sans text-secondary-900/70">
             View and analyze call history and transcripts
           </p>
         </div>
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading call logs...</p>
+            <p className="mt-4 font-sans text-secondary-900/70">Loading call logs...</p>
           </div>
         </div>
       </div>
@@ -102,16 +95,16 @@ const CallLogs = () => {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-secondary-900">
             Call Logs & Transcripts
           </h1>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 font-sans text-secondary-900/70">
             View and analyze call history and transcripts
           </p>
         </div>
         <div className="card">
           <div className="text-center py-8">
-            <div className="text-red-600 mb-4">
+            <div className="text-primary-600 mb-4">
               <svg
                 className="mx-auto h-12 w-12"
                 fill="none"
@@ -126,10 +119,10 @@ const CallLogs = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <h3 className="text-lg font-medium text-secondary-900 mb-2">
               Error Loading Call Logs
             </h3>
-            <p className="text-gray-600 mb-4">{logsError}</p>
+            <p className="font-sans text-secondary-900/70 mb-4">{logsError}</p>
             <button onClick={refetchLogs} className="btn-primary">
               Retry
             </button>
@@ -142,70 +135,72 @@ const CallLogs = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">
+        <h1 className="text-3xl font-bold text-secondary-900">
           Call Logs & Transcripts
         </h1>
-        <p className="mt-2 text-gray-600">
+        <p className="mt-2 font-sans text-secondary-900/70">
           View and analyze call history and transcripts
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         {/* Call Logs Panel */}
-        <div className="lg:col-span-2 space-y-4">
-          <div className="card">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-gray-900">Call Logs</h2>
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+        <div className="lg:col-span-2 space-y-4 min-h-0">
+          <div className="card flex flex-col max-h-[calc(140vh-9rem)] min-h-0">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 shrink-0">
+              <h2 className="text-xl font-semibold text-secondary-900">
+                Call Logs
+              </h2>
+              <div className="relative w-full sm:w-80">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-secondary-900/40" />
                 <input
                   type="text"
                   placeholder="Search by user ID, timestamp, or duration"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent w-80"
+                  className="pl-10 pr-4 py-2 border border-secondary-900/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent w-full bg-bg-paper font-sans text-secondary-900 placeholder:text-secondary-900/40"
                 />
               </div>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+            <div className="min-h-0 flex-1 overflow-auto rounded-md border border-secondary-900/10 -mx-1 px-1">
+              <table className="min-w-full divide-y divide-secondary-900/15">
+                <thead className="bg-bg-sand sticky top-0 z-10 shadow-[0_1px_0_0_rgba(17,17,17,0.08)]">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-sans font-medium text-secondary-900/50 uppercase tracking-wider">
                       Timestamp
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-sans font-medium text-secondary-900/50 uppercase tracking-wider">
                       User ID
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-sans font-medium text-secondary-900/50 uppercase tracking-wider">
                       Duration
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-sans font-medium text-secondary-900/50 uppercase tracking-wider">
                       Transcript
                     </th>
-                    {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {/* <th className="px-6 py-3 text-left text-xs font-medium text-secondary-900/50 uppercase tracking-wider">
                       Actions
                     </th> */}
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-bg-paper divide-y divide-secondary-900/15">
                   {callLogs?.map((log) => (
                     <tr
                       key={log.id}
-                      className="hover:bg-gray-50 cursor-pointer"
+                      className="hover:bg-secondary-900/[0.04] cursor-pointer"
                       onClick={() => handleViewTranscript(log.id)}
                     >
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-sans text-secondary-900">
                         {log.timestamp}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-sans text-secondary-900">
                         {log.userId}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-sans text-secondary-900">
                         {log.duration}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-sans text-secondary-900/70">
                         {log.transcript}
                       </td>
                       {/* <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -237,12 +232,12 @@ const CallLogs = () => {
         </div>
 
         {/* AI Transcript Assistant Panel */}
-        <div className="space-y-4">
-          <div className="card">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+        <div className="space-y-4 min-h-0">
+          <div className="card max-h-[calc(140vh-9rem)] overflow-y-auto">
+            <h2 className="text-xl font-semibold text-secondary-900 mb-4">
               AI Transcript Assistant
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="font-sans text-secondary-900/70 mb-6">
               Get the most out of your calls. With our AI assistant, you can
               summarize key points, analyze customer sentiment, and even
               generate a list of action items. Maximize your understanding and
@@ -253,9 +248,8 @@ const CallLogs = () => {
               <button
                 onClick={() => handleAnalyzeCall("summarize")}
                 disabled={isAnalyzing || analyzeLoading}
-                className="w-full btn-primary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full btn-primary flex items-center justify-center !px-4 !py-2.5 !font-sans !text-xs !font-medium !normal-case !tracking-normal disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <FileText className="h-4 w-4 mr-2" />
                 {isAnalyzing && analyzeLoading
                   ? "Analyzing..."
                   : "Summarize the calls"}
@@ -263,9 +257,8 @@ const CallLogs = () => {
               <button
                 onClick={() => handleAnalyzeCall("sentiment")}
                 disabled={isAnalyzing || analyzeLoading}
-                className="w-full btn-primary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full btn-primary flex items-center justify-center !px-4 !py-2.5 !font-sans !text-xs !font-medium !normal-case !tracking-normal disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <TrendingUp className="h-4 w-4 mr-2" />
                 {isAnalyzing && analyzeLoading
                   ? "Analyzing..."
                   : "Analyze customers' sentiments"}
@@ -273,9 +266,8 @@ const CallLogs = () => {
               <button
                 onClick={() => handleAnalyzeCall("action-items")}
                 disabled={isAnalyzing || analyzeLoading}
-                className="w-full btn-primary flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full btn-primary flex items-center justify-center !px-4 !py-2.5 !font-sans !text-xs !font-medium !normal-case !tracking-normal disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <MessageSquare className="h-4 w-4 mr-2" />
                 {isAnalyzing && analyzeLoading
                   ? "Analyzing..."
                   : "List action items"}
@@ -283,16 +275,18 @@ const CallLogs = () => {
             </div>
 
             {analysisResult && (
-              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                <h4 className="font-medium text-gray-900 mb-2">
+              <div className="mt-4 p-4 bg-bg-sand rounded-lg border border-secondary-900/10">
+                <h4 className="font-sans font-medium text-secondary-900 mb-2">
                   Analysis Result:
                 </h4>
-                <p className="text-sm text-gray-700">{analysisResult}</p>
+                <p className="text-sm font-sans text-secondary-900/80">
+                  {analysisResult}
+                </p>
               </div>
             )}
 
             <div className="mt-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-sans font-medium text-secondary-900/80 mb-2">
                 Ask something about the calls
               </label>
               <input
@@ -305,7 +299,7 @@ const CallLogs = () => {
               <button
                 onClick={handleQueryCalls}
                 disabled={queryLoading || !selectedCategory.trim()}
-                className="w-full btn-primary mt-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full btn-primary mt-3 !px-4 !py-2.5 !font-sans !text-xs !font-medium !normal-case !tracking-normal disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {queryLoading ? "Querying..." : "Query Calls"}
               </button>

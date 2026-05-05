@@ -54,15 +54,15 @@ const Settings = () => {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
-          <p className="mt-2 text-gray-600">
+          <h1 className="text-3xl font-bold text-secondary-900">Settings</h1>
+          <p className="mt-2 text-secondary-900/70">
             Configure your call center preferences and integrations
           </p>
         </div>
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading settings...</p>
+            <p className="mt-4 text-secondary-900/70">Loading settings...</p>
           </div>
         </div>
       </div>
@@ -74,14 +74,14 @@ const Settings = () => {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
-          <p className="mt-2 text-gray-600">
+          <h1 className="text-3xl font-bold text-secondary-900">Settings</h1>
+          <p className="mt-2 text-secondary-900/70">
             Configure your call center preferences and integrations
           </p>
         </div>
         <div className="card">
           <div className="text-center py-8">
-            <div className="text-red-600 mb-4">
+            <div className="text-primary-600 mb-4">
               <svg
                 className="mx-auto h-12 w-12"
                 fill="none"
@@ -96,10 +96,10 @@ const Settings = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <h3 className="text-lg font-medium text-secondary-900 mb-2">
               Error Loading Settings
             </h3>
-            <p className="text-gray-600 mb-4">{settingsError}</p>
+            <p className="text-secondary-900/70 mb-4">{settingsError}</p>
             <button
               onClick={() => window.location.reload()}
               className="btn-primary"
@@ -115,8 +115,8 @@ const Settings = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
-        <p className="mt-2 text-gray-600">
+        <h1 className="text-3xl font-bold text-secondary-900">Settings</h1>
+        <p className="mt-2 text-secondary-900/70">
           Configure your call center preferences and integrations
         </p>
       </div>
@@ -124,10 +124,10 @@ const Settings = () => {
       <div className="max-w-4xl">
         {/* General Section */}
         <div className="card mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">General</h2>
+          <h2 className="text-xl font-semibold text-secondary-900 mb-4">General</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-sans font-medium text-secondary-900/80 mb-2">
                 Call Centre Name
               </label>
               <input
@@ -141,7 +141,7 @@ const Settings = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-sans font-medium text-secondary-900/80 mb-2">
                 Call Centre Description
               </label>
               <input
@@ -159,12 +159,12 @@ const Settings = () => {
 
         {/* Call Handling Section */}
         <div className="card mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
+          <h2 className="text-xl font-semibold text-secondary-900 mb-4">
             Call Handling
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-sans font-medium text-secondary-900/80 mb-2">
                 Default Language
               </label>
               <input
@@ -178,7 +178,7 @@ const Settings = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-sans font-medium text-secondary-900/80 mb-2">
                 Default Voice
               </label>
               <input
@@ -192,7 +192,7 @@ const Settings = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-sans font-medium text-secondary-900/80 mb-2">
                 Default Greeting
               </label>
               <input
@@ -210,11 +210,11 @@ const Settings = () => {
 
         {/* Integration Section */}
         <div className="card mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
+          <h2 className="text-xl font-semibold text-secondary-900 mb-4">
             Integration
           </h2>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-sans font-medium text-secondary-900/80 mb-2">
               CRM Integration Key
             </label>
             <input
@@ -235,8 +235,8 @@ const Settings = () => {
             <div
               className={`text-sm ${
                 saveMessage.includes("successfully")
-                  ? "text-green-600"
-                  : "text-red-600"
+                  ? "text-primary-600"
+                  : "text-primary-700"
               }`}
             >
               {saveMessage}

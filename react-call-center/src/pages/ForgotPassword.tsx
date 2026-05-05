@@ -38,7 +38,7 @@ const ForgotPassword = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-bg-sand flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="card">
           <div className="text-center mb-8">
@@ -47,10 +47,10 @@ const ForgotPassword = () => {
               alt="Call Center"
               className="h-12 w-12 rounded mx-auto mb-4"
             />
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-secondary-900">
               Reset your password
             </h1>
-            <p className="mt-2 text-gray-600">
+            <p className="mt-2 text-secondary-900/70">
               Enter your email and we'll send you a reset link.
             </p>
           </div>
@@ -58,7 +58,7 @@ const ForgotPassword = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
               <div
-                className="p-3 rounded-lg bg-red-50 text-red-700 text-sm"
+                className="p-3 rounded-lg bg-primary-500/10 text-primary-600 border border-primary-500/20 text-sm"
                 role="alert"
               >
                 {error}
@@ -66,7 +66,7 @@ const ForgotPassword = () => {
             )}
             {message && (
               <div
-                className="p-3 rounded-lg bg-green-50 text-green-700 text-sm"
+                className="p-3 rounded-lg bg-primary-500/10 text-primary-700 border border-primary-500/15 text-sm"
                 role="status"
               >
                 {message}
@@ -76,7 +76,7 @@ const ForgotPassword = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-sans font-medium text-secondary-900/80 mb-2"
               >
                 Email address
               </label>

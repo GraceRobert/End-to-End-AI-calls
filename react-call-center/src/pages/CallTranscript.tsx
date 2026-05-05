@@ -50,21 +50,21 @@ const CallTranscript = () => {
   if (transcriptLoading || detailsLoading) {
     return (
       <div className="space-y-6">
-        <nav className="flex items-center space-x-2 text-sm text-gray-500">
+        <nav className="flex items-center space-x-2 text-sm font-sans text-secondary-900/50">
           <Link
             to="/call-logs"
-            className="hover:text-gray-700 flex items-center"
+            className="hover:text-secondary-900/80 flex items-center font-sans"
           >
             <ArrowLeft className="h-4 w-4 mr-1" />
             Call Logs & Transcripts
           </Link>
           <span>/</span>
-          <span className="text-gray-900">Call Transcript</span>
+          <span className="text-secondary-900 font-sans">Call Transcript</span>
         </nav>
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading transcript...</p>
+            <p className="mt-4 font-sans text-secondary-900/70">Loading transcript...</p>
           </div>
         </div>
       </div>
@@ -75,20 +75,20 @@ const CallTranscript = () => {
   if (transcriptError || detailsError) {
     return (
       <div className="space-y-6">
-        <nav className="flex items-center space-x-2 text-sm text-gray-500">
+        <nav className="flex items-center space-x-2 text-sm font-sans text-secondary-900/50">
           <Link
             to="/call-logs"
-            className="hover:text-gray-700 flex items-center"
+            className="hover:text-secondary-900/80 flex items-center font-sans"
           >
             <ArrowLeft className="h-4 w-4 mr-1" />
             Call Logs & Transcripts
           </Link>
           <span>/</span>
-          <span className="text-gray-900">Call Transcript</span>
+          <span className="text-secondary-900 font-sans">Call Transcript</span>
         </nav>
         <div className="card">
           <div className="text-center py-8">
-            <div className="text-red-600 mb-4">
+            <div className="text-primary-600 mb-4">
               <svg
                 className="mx-auto h-12 w-12"
                 fill="none"
@@ -103,10 +103,10 @@ const CallTranscript = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <h3 className="text-lg font-medium text-secondary-900 mb-2">
               Error Loading Transcript
             </h3>
-            <p className="text-gray-600 mb-4">
+            <p className="font-sans text-secondary-900/70 mb-4">
               {transcriptError || detailsError}
             </p>
             <button
@@ -124,32 +124,35 @@ const CallTranscript = () => {
   return (
     <div className="space-y-6">
       {/* Breadcrumbs */}
-      <nav className="flex items-center space-x-2 text-sm text-gray-500">
-        <Link to="/call-logs" className="hover:text-gray-700 flex items-center">
+      <nav className="flex items-center space-x-2 text-sm font-sans text-secondary-900/50">
+        <Link
+          to="/call-logs"
+          className="hover:text-secondary-900/80 flex items-center font-sans"
+        >
           <ArrowLeft className="h-4 w-4 mr-1" />
           Call Logs & Transcripts
         </Link>
         <span>/</span>
-        <span className="text-gray-900">Call Transcript</span>
+        <span className="text-secondary-900 font-sans">Call Transcript</span>
       </nav>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         {/* Transcript Panel */}
-        <div className="lg:col-span-2">
-          <div className="card">
-            <h1 className="text-2xl font-bold text-gray-900 mb-6">
+        <div className="lg:col-span-2 min-h-0">
+          <div className="card flex flex-col max-h-[calc(140vh-9rem)] min-h-0">
+            <h1 className="text-2xl font-bold text-secondary-900 mb-4 shrink-0">
               Call Transcript
             </h1>
 
-            <div className="space-y-4">
+            <div className="min-h-0 flex-1 overflow-y-auto space-y-4 pr-1 -mr-1">
               {transcript?.map((entry, index) => (
                 <div key={index} className="flex space-x-3">
                   <div className="flex-shrink-0">
                     <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                      className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-sans font-medium ${
                         entry.speaker === "Caller"
-                          ? "bg-blue-100 text-blue-800"
-                          : "bg-green-100 text-green-800"
+                          ? "bg-primary-100 text-primary-800"
+                          : "bg-secondary-900/10 text-secondary-900"
                       }`}
                     >
                       {entry.speaker === "Caller" ? "C" : "A"}
@@ -157,14 +160,14 @@ const CallTranscript = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center space-x-2 mb-1">
-                      <span className="font-medium text-gray-900">
+                      <span className="font-sans font-medium text-secondary-900">
                         {entry.speaker}
                       </span>
-                      <span className="text-sm text-gray-500">
+                      <span className="text-sm font-sans text-secondary-900/50">
                         ({entry.time})
                       </span>
                     </div>
-                    <p className="text-gray-700">{entry.message}</p>
+                    <p className="font-sans text-secondary-900/80">{entry.message}</p>
                   </div>
                 </div>
               ))}
@@ -175,17 +178,17 @@ const CallTranscript = () => {
         {/* Call Details Panel */}
         <div className="space-y-4 min-w-0">
           <div className="card min-w-0 overflow-hidden">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-semibold text-secondary-900 mb-4">
               Call Details
             </h2>
 
             <div className="space-y-4 min-w-0">
               <div className="min-w-0">
-                <label className="block text-sm font-medium text-gray-500">
+                <label className="block text-sm font-sans font-medium text-secondary-900/80">
                   Call ID
                 </label>
                 <p
-                  className="text-lg font-semibold text-gray-900 truncate"
+                  className="text-lg font-sans font-semibold text-secondary-900 truncate"
                   title={
                     callDetails?.id != null && callDetails.id !== ""
                       ? String(callDetails.id)
@@ -197,19 +200,19 @@ const CallTranscript = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-500">
+                <label className="block text-sm font-sans font-medium text-secondary-900/80">
                   Date/Time
                 </label>
-                <p className="text-lg font-semibold text-gray-900">
+                <p className="text-lg font-sans font-semibold text-secondary-900">
                   {callDetails?.dateTime || "N/A"}
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-500">
+                <label className="block text-sm font-sans font-medium text-secondary-900/80">
                   Duration
                 </label>
-                <p className="text-lg font-semibold text-gray-900">
+                <p className="text-lg font-sans font-semibold text-secondary-900">
                   {callDetails?.duration || "N/A"}
                 </p>
               </div>
@@ -217,37 +220,39 @@ const CallTranscript = () => {
           </div>
 
           <div className="card">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            <h3 className="text-lg font-semibold text-secondary-900 mb-4">
               NLP Intent
             </h3>
-            <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-gray-500 text-sm">
+            <div className="bg-bg-sand rounded-lg p-4 border border-secondary-900/10">
+              <p className="font-sans text-secondary-900/50 text-sm">
                 {callDetails?.nlpIntent || "No NLP intent data available"}
               </p>
             </div>
           </div>
 
           <div className="card">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            <h3 className="text-lg font-semibold text-secondary-900 mb-4">
               Audio Playback
             </h3>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-sans font-medium text-secondary-900/80 mb-2">
                   Call Recording
                 </label>
                 <div className="flex items-center space-x-3">
                   <button
                     onClick={handlePlayAudio}
                     disabled={audioLoading}
-                    className="w-10 h-10 bg-primary-600 text-white rounded-full flex items-center justify-center hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-10 h-10 bg-primary-600 text-secondary-50 rounded-full flex items-center justify-center hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Play className="h-4 w-4" />
                   </button>
                   <div className="flex items-center space-x-2">
-                    <Mic className="h-5 w-5 text-gray-400" />
-                    <span className="text-sm text-gray-600">AI Assistant</span>
+                    <Mic className="h-5 w-5 text-secondary-900/40" />
+                    <span className="text-sm font-sans text-secondary-900/70">
+                      AI Assistant
+                    </span>
                   </div>
                 </div>
               </div>

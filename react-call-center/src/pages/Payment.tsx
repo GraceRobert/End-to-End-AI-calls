@@ -40,30 +40,34 @@ const Payment = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Billing & Payment</h1>
-        <p className="mt-2 text-gray-600">
+        <h1 className="text-3xl font-bold text-secondary-900">Billing & Payment</h1>
+        <p className="mt-2 text-secondary-900/70">
           Manage your plan and upgrade when you need more features.
         </p>
       </div>
 
       {/* Current plan */}
       <div className="card">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+        <h2 className="text-xl font-semibold text-secondary-900 mb-4">
           Current plan
         </h2>
         {currentPlan && (
-          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+          <div className="flex items-center justify-between p-4 bg-bg-sand rounded-lg border border-secondary-900/10">
             <div>
-              <p className="font-medium text-gray-900">{currentPlan.name}</p>
-              <p className="text-sm text-gray-500">{currentPlan.bestFor}</p>
-              <p className="mt-1 text-lg font-semibold text-gray-900">
+              <p className="font-sans font-medium text-secondary-900">
+                {currentPlan.name}
+              </p>
+              <p className="text-sm font-sans text-secondary-900/50">
+                {currentPlan.bestFor}
+              </p>
+              <p className="font-stat mt-1 text-lg text-secondary-900">
                 {currentPlan.currency} {currentPlan.price}
                 {currentPlan.period && `/${currentPlan.period}`}
               </p>
             </div>
-            <div className="flex items-center gap-2 text-green-600">
+            <div className="flex items-center gap-2 text-primary-600">
               <Check className="h-5 w-5" />
-              <span className="text-sm font-medium">Active</span>
+              <span className="text-sm font-sans font-medium">Active</span>
             </div>
           </div>
         )}
@@ -71,22 +75,22 @@ const Payment = () => {
 
       {/* Upgrade options */}
       <div className="card">
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">
+        <h2 className="text-xl font-semibold text-secondary-900 mb-2">
           Upgrade your plan
         </h2>
-        <p className="text-gray-600 mb-6">
+        <p className="text-secondary-900/70 mb-6">
           Get more intents, concurrent calls, and features as your business
           grows.
         </p>
 
         {upgradePlans.length === 0 ? (
-          <div className="p-6 bg-gray-50 rounded-lg text-center">
-            <p className="text-gray-600">
+          <div className="p-6 bg-bg-sand rounded-lg text-center border border-secondary-900/10">
+            <p className="text-secondary-900/70">
               You're on the highest self-serve plan. For Enterprise with custom
               pricing,{" "}
               <Link
                 to="/enterprise-contact"
-                className="text-primary-600 hover:text-primary-700 font-medium"
+                className="text-primary-600 hover:text-primary-700 font-sans font-medium"
               >
                 contact us
               </Link>
@@ -98,14 +102,14 @@ const Payment = () => {
             {upgradePlans.map((plan) => (
               <div
                 key={plan.id}
-                className="border border-gray-200 rounded-lg p-6 hover:border-primary-300 transition-colors"
+                className="border border-secondary-900/15 rounded-lg p-6 hover:border-primary-500/50 transition-colors"
               >
-                <h3 className="font-semibold text-gray-900">{plan.name}</h3>
-                <p className="text-sm text-gray-500 mt-1">{plan.bestFor}</p>
-                <p className="mt-3 text-xl font-bold text-gray-900">
+                <h3 className="font-semibold text-secondary-900">{plan.name}</h3>
+                <p className="text-sm text-secondary-900/50 mt-1">{plan.bestFor}</p>
+                <p className="font-stat mt-3 text-xl text-secondary-900">
                   {plan.currency} {plan.price}
                   {plan.period && (
-                    <span className="text-base font-normal text-gray-500">
+                    <span className="text-base font-sans font-normal text-secondary-900/50">
                       /{plan.period}
                     </span>
                   )}
@@ -114,9 +118,9 @@ const Payment = () => {
                   {plan.features.slice(0, 4).map((f) => (
                     <li
                       key={f}
-                      className="flex items-center gap-2 text-sm text-gray-600"
+                      className="flex items-center gap-2 text-sm text-secondary-900/70"
                     >
-                      <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
+                      <Check className="h-4 w-4 text-primary-500 flex-shrink-0" />
                       {f}
                     </li>
                   ))}
@@ -148,17 +152,17 @@ const Payment = () => {
 
       {/* Payment method */}
       <div className="card">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <h2 className="text-xl font-semibold text-secondary-900 mb-4 flex items-center gap-2">
           <CreditCard className="h-5 w-5" />
           Payment method
         </h2>
-        <p className="text-gray-600 mb-4">
+        <p className="text-secondary-900/70 mb-4">
           Plans are billed monthly via M-Pesa auto-debit. You can update your
           payment method in Settings.
         </p>
         <Link
           to="/settings"
-          className="text-primary-600 hover:text-primary-700 text-sm font-medium"
+          className="text-primary-600 hover:text-primary-700 text-sm font-sans font-medium"
         >
           Manage payment settings →
         </Link>

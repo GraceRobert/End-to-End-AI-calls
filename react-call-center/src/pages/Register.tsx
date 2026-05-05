@@ -20,11 +20,7 @@ const Register = () => {
   const [searchParams] = useSearchParams()
   const planParam = searchParams.get("plan") || "essentials"
   const plan =
-    planParam === "basic"
-      ? "basic"
-      : planParam === "pro"
-        ? "pro"
-        : "essentials"
+    planParam === "basic" ? "basic" : planParam === "pro" ? "pro" : "essentials"
   const navigate = useNavigate()
 
   const [name, setName] = useState("")
@@ -59,7 +55,7 @@ const Register = () => {
         plan,
       })
       setAuth(token, user)
-      navigate("/", { replace: true })
+      navigate("/complete-registration", { replace: true })
     } catch (err) {
       setError(
         userFacingError(
@@ -73,17 +69,20 @@ const Register = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-bg-sand flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md">
         <div className="card">
           <div className="text-center mb-6">
-            <Link to="/plans" className="text-sm text-primary-600 hover:text-primary-700">
+            <Link
+              to="/plans"
+              className="text-sm text-primary-600 hover:text-primary-700"
+            >
               ← Back to plans
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900 mt-2">
+            <h1 className="text-2xl font-bold text-secondary-900 mt-2">
               Create your account
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-secondary-900/70 mt-1">
               {planInfo.name} &middot; {planInfo.price}
             </p>
           </div>
@@ -91,7 +90,7 @@ const Register = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
               <div
-                className="p-3 rounded-lg bg-red-50 text-red-700 text-sm"
+                className="p-3 rounded-lg bg-primary-500/10 text-primary-600 border border-primary-500/20 text-sm"
                 role="alert"
               >
                 {error}
@@ -99,7 +98,10 @@ const Register = () => {
             )}
 
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="name"
+                className="block text-sm font-sans font-medium text-secondary-900/80 mb-1"
+              >
                 Full name
               </label>
               <input
@@ -114,7 +116,10 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="email"
+                className="block text-sm font-sans font-medium text-secondary-900/80 mb-1"
+              >
                 Email address
               </label>
               <input
@@ -130,7 +135,10 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="password"
+                className="block text-sm font-sans font-medium text-secondary-900/80 mb-1"
+              >
                 Password
               </label>
               <div className="relative">
@@ -148,7 +156,7 @@ const Register = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-secondary-900/40 hover:text-secondary-900/70"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
@@ -158,11 +166,16 @@ const Register = () => {
                   )}
                 </button>
               </div>
-              <p className="text-xs text-gray-500 mt-1">At least 8 characters</p>
+              <p className="text-xs text-secondary-900/50 mt-1">
+                At least 8 characters
+              </p>
             </div>
 
             <div>
-              <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="company"
+                className="block text-sm font-sans font-medium text-secondary-900/80 mb-1"
+              >
                 Company name
               </label>
               <input
@@ -177,7 +190,10 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="phone"
+                className="block text-sm font-sans font-medium text-secondary-900/80 mb-1"
+              >
                 Phone number
               </label>
               <input
@@ -201,7 +217,10 @@ const Register = () => {
           </form>
 
           <p className="mt-6 text-center">
-            <Link to="/login" className="text-sm text-primary-600 hover:text-primary-700">
+            <Link
+              to="/login"
+              className="text-sm text-primary-600 hover:text-primary-700"
+            >
               Already have an account? Sign in
             </Link>
           </p>

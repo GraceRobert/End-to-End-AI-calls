@@ -201,10 +201,14 @@ export interface AIAnalysisResponse {
   confidence?: number
 }
 
+export type RegisteredPlanId = "basic" | "essentials" | "pro"
+
 export interface AuthUser {
   id: string
   email: string
   name: string
+  /** Set after sign-up; used for onboarding (intent limits, etc.). */
+  plan?: RegisteredPlanId
 }
 
 export interface LoginResponse {
@@ -218,7 +222,7 @@ export interface RegisterRequest {
   password: string
   company: string
   phone: string
-  plan: "basic" | "essentials" | "pro"
+  plan: RegisteredPlanId
 }
 
 export interface EnterpriseContactRequest {
@@ -405,10 +409,16 @@ class ApiService {
     const data = (await response.json()) as Record<string, unknown>
     const token = (data.token as string) ?? (data.access_token as string) ?? ""
     const rawUser = data.user as Record<string, unknown> | undefined
+    const rawPlan = rawUser?.plan as string | undefined
+    const planFromApi =
+      rawPlan === "basic" || rawPlan === "essentials" || rawPlan === "pro"
+        ? rawPlan
+        : undefined
     const user: AuthUser = {
       id: String(rawUser?.id ?? ""),
       email: String(rawUser?.email ?? email),
       name: String(rawUser?.name ?? rawUser?.username ?? email.split("@")[0]),
+      ...(planFromApi ? { plan: planFromApi } : {}),
     }
     return { token, user }
   }
@@ -449,10 +459,16 @@ class ApiService {
     const res = (await response.json()) as Record<string, unknown>
     const token = (res.token as string) ?? (res.access_token as string) ?? ""
     const rawUser = res.user as Record<string, unknown> | undefined
+    const rawPlan = rawUser?.plan as string | undefined
+    const planFromApi =
+      rawPlan === "basic" || rawPlan === "essentials" || rawPlan === "pro"
+        ? rawPlan
+        : data.plan
     const user: AuthUser = {
       id: String(rawUser?.id ?? ""),
       email: String(rawUser?.email ?? data.email),
       name: String(rawUser?.name ?? data.name),
+      plan: planFromApi,
     }
     return { token, user }
   }

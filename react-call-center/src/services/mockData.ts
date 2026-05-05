@@ -19,21 +19,21 @@ export const mockKPICards: KPICard[] = [
     value: "125",
     change: "+10%",
     isPositive: true,
-    color: "text-green-600",
+    color: "text-primary-600",
   },
   {
     title: "System Load",
     value: "75%",
     change: "-5%",
     isPositive: false,
-    color: "text-blue-600",
+    color: "text-primary-500",
   },
   {
     title: "Error Rate",
     value: "2%",
     change: "+1%",
     isPositive: false,
-    color: "text-red-600",
+    color: "text-primary-700",
   },
 ]
 

@@ -14,6 +14,7 @@ import Settings from "./pages/Settings"
 import CallTranscript from "./pages/CallTranscript"
 import Payment from "./pages/Payment"
 import UpgradeCheckout from "./pages/UpgradeCheckout"
+import CompleteRegistration from "./pages/CompleteRegistration"
 import { apiService } from "./services/api"
 import { mockApiService } from "./services/mockApiService"
 
@@ -52,6 +53,10 @@ function App() {
             element={<UpgradeCheckout />}
           />
           <Route path="/transcript/:id" element={<CallTranscript />} />
+          <Route
+            path="/complete-registration"
+            element={<CompleteRegistration />}
+          />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -38,7 +38,7 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-bg-sand flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="card">
           <div className="text-center mb-8">
@@ -47,14 +47,14 @@ const Login = () => {
               alt="Call Center"
               className="h-12 w-12 rounded mx-auto mb-4"
             />
-            <h1 className="text-2xl font-bold text-gray-900">Call Center</h1>
-            <p className="mt-2 text-gray-600">Sign in to your account</p>
+            <h1 className="text-2xl font-bold text-secondary-900">Call Center</h1>
+            <p className="mt-2 text-secondary-900/70">Sign in to your account</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
               <div
-                className="p-3 rounded-lg bg-red-50 text-red-700 text-sm"
+                className="p-3 rounded-lg bg-primary-500/10 text-primary-600 border border-primary-500/20 text-sm"
                 role="alert"
               >
                 {error}
@@ -64,7 +64,7 @@ const Login = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-sans font-medium text-secondary-900/80 mb-2"
               >
                 Email address
               </label>
@@ -83,7 +83,7 @@ const Login = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-sans font-medium text-secondary-900/80 mb-2"
               >
                 Password
               </label>
@@ -101,7 +101,7 @@ const Login = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-secondary-900/40 hover:text-secondary-900/70"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
@@ -132,7 +132,7 @@ const Login = () => {
           </form>
         </div>
 
-        <p className="mt-6 text-center text-sm text-gray-500">
+        <p className="mt-6 text-center text-sm text-secondary-900/50">
           Use your credentials to access the call center dashboard.
         </p>
         <p className="mt-4 text-center">

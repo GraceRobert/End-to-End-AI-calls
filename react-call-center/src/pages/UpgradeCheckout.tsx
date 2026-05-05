@@ -20,9 +20,12 @@ const UpgradeCheckout = () => {
   if (!plan || plan.isEnterprise) {
     return (
       <div className="space-y-6">
-        <p className="text-gray-600">
+        <p className="text-secondary-900/70">
           Invalid plan or Enterprise upgrades require{" "}
-          <Link to="/enterprise-contact" className="text-primary-600 hover:text-primary-700">
+          <Link
+            to="/enterprise-contact"
+            className="text-primary-600 hover:text-primary-700"
+          >
             contacting us
           </Link>
           .
@@ -44,7 +47,7 @@ const UpgradeCheckout = () => {
       } else {
         // Mock: simulate success
         alert(
-          `Upgrade to ${plan.name} initiated. In production, you would be redirected to M-Pesa checkout.`
+          `Upgrade to ${plan.name} initiated. In production, you would be redirected to M-Pesa checkout.`,
         )
         navigate("/payment", { replace: true })
       }
@@ -69,34 +72,37 @@ const UpgradeCheckout = () => {
         >
           ← Back to Billing
         </Link>
-        <h1 className="text-3xl font-bold text-gray-900">
+        <h1 className="text-3xl font-bold text-secondary-900">
           Upgrade to {plan.name}
         </h1>
-        <p className="mt-2 text-gray-600">{plan.bestFor}</p>
+        <p className="mt-2 text-secondary-900/70">{plan.bestFor}</p>
       </div>
 
       <div className="card">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <p className="text-2xl font-bold text-gray-900">
+            <p className="font-stat text-2xl text-secondary-900">
               {plan.currency} {plan.price}
               {plan.period && `/${plan.period}`}
             </p>
-            <p className="text-sm text-gray-500">Billed monthly</p>
+            <p className="text-sm text-secondary-900/50">Billed monthly</p>
           </div>
         </div>
 
         <ul className="space-y-3 mb-6">
           {plan.features.map((f) => (
-            <li key={f} className="flex items-center gap-2 text-gray-600">
-              <span className="text-green-500">✓</span>
+            <li
+              key={f}
+              className="flex items-center gap-2 text-secondary-900/70"
+            >
+              <span className="text-primary-500">✓</span>
               {f}
             </li>
           ))}
         </ul>
 
         {error && (
-          <div className="p-3 rounded-lg bg-red-50 text-red-700 text-sm mb-6">
+          <div className="p-3 rounded-lg bg-primary-500/10 text-primary-600 border border-primary-500/20 text-sm mb-6">
             {error}
           </div>
         )}
@@ -109,7 +115,7 @@ const UpgradeCheckout = () => {
           >
             {isSubmitting ? "Processing..." : "Pay via M-Pesa"}
           </button>
-          <p className="text-xs text-gray-500 text-center">
+          <p className="text-xs text-secondary-900/50 text-center">
             You will receive an M-Pesa prompt to complete the payment. Your plan
             will upgrade immediately after payment.
           </p>
